@@ -1,23 +1,25 @@
-import { episodes } from '@/app/data/episodes';
 import { notFound } from 'next/navigation';
-import AudioPlayer from '@/app/components/AudioPlayer'
-import { use } from "react"
+import { episodes } from '@/app/data/episodes';
+import type Episode from '@/app/types/episode';
 
+type EpisodePageProps = {
+  params: {
+    slug: string;
+  };
+};
 
-export default function Page(props) {
+// ✅ Now async — allows future use of headers(), cookies(), fetch(), etc.
+export default async function EpisodePage({ params }: EpisodePageProps) {
+  const episode: Episode | undefined = episodes.find(
+    (ep: Episode) => ep.slug === params.slug
+  );
 
-     const params = use(props.params)
-//   const searchParams = use(props.searchParams)
-//   const slug = params.slug
-//   const query = searchParams.query
-
-  const episode = episodes.find((ep) => ep.slug === params.slug);
   if (!episode) return notFound();
 
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold">{episode.title}</h1>
-      <p className="mt-4">{episode.description}</p>
+      <h1 className="text-3xl font-bold text-yellow">{episode.title}</h1>
+      <p className="mt-4 text-lg text-foreground">{episode.description}</p>
       <audio controls className="mt-6 w-full">
         <source src={episode.audioUrl} type="audio/mpeg" />
         Your browser does not support the audio element.
