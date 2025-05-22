@@ -1,4 +1,6 @@
-export const episodes = [
+import episode from '@/app/types/episode'
+
+export const episodes: episode[] = [
   {
     slug: 'ep-1',
     title: 'Episode 1',
