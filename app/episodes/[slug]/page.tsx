@@ -1,12 +1,16 @@
 import { episodes } from '@/app/data/episodes';
 import { notFound } from 'next/navigation';
 import AudioPlayer from '@/app/components/AudioPlayer'
+import { use } from "react"
 
-export default function EpisodePage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+
+export default function Page(props) {
+
+     const params = use(props.params)
+//   const searchParams = use(props.searchParams)
+//   const slug = params.slug
+//   const query = searchParams.query
+
   const episode = episodes.find((ep) => ep.slug === params.slug);
   if (!episode) return notFound();
 
