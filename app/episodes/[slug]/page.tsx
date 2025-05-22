@@ -4,7 +4,9 @@ import AudioPlayer from '@/app/components/AudioPlayer'
 
 type Props = { params: { slug: string } };
 
-export default function EpisodePage({ params }: Props) {
+export default function EpisodePage({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+
   const episode = episodes.find((e) => e.slug === params.slug);
 
   if (!episode) return notFound();
